@@ -111,7 +111,7 @@ module MiniFB
         end
     end
 
-    BAD_JSON_METHODS = ["users.getLoggedInUser","auth.promoteSession"]
+    BAD_JSON_METHODS = ["users.getLoggedInUser","auth.promoteSession","stream.Publish"]
 
     # Call facebook server with a method request. Most keyword arguments
     # are passed directly to the server with a few exceptions.
