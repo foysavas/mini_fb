@@ -1,6 +1,7 @@
 require 'digest/md5'
 require 'erb'
 require 'json' unless defined? JSON
+require 'cgi'
 
 module MiniFB
 
@@ -222,6 +223,16 @@ module MiniFB
         login_url << "&next=#{options[:next]}" if options[:next]
         login_url << "&canvas" if options[:canvas]
         login_url
+    end
+
+    def self.connect_url(api_key,opts={})
+      r = "http://www.facebook.com/login.php?api_key=#{api_key}"
+      r << "&display=#{opts[:display] || 'page'}"
+      r << "&extern=1&fbconnect=1&fb_connect=1&return_session=1&v=1.0"
+      r << "&req_perms=#{opts[:req_perms].join(',')}" if opts[:req_perms] # e.g. [offline_access, publish_stream, read_stream]
+      r << "&next=#{CGI.escape(opts[:next])}" if opts[:next]
+      r << "&cancel=#{CGI.escape(opts[:cancel])}" if opts[:cancel]
+      r
     end
 
     # This function expects arguments as a hash, so
