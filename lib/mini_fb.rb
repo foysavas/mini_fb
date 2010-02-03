@@ -156,7 +156,7 @@ module MiniFB
         arg_string = String.new
         # todo: convert symbols to strings, symbols break the next line
         kwargs.sort.each { |kv| arg_string << kv[0] << "=" << kv[1].to_s }
-        kwargs["sig"] = Digest::MD5.hexdigest( arg_string + secret.value.call )
+        kwargs["sig"] = Digest::MD5.hexdigest( arg_string + secret.value.call[:secret_key] )
 
         # Call website with POST request
         begin
